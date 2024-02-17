@@ -20,7 +20,7 @@ F_P FirstPage () ; //first page
 char menu () ; //menu
 E_S EnemySpaceship ( int ) ;
 void NewGame ( int , char , char ) ;
-void game ( int , vector < vector < char > > , char , char , int ) ;
+void game ( int , vector < vector < char > > , char , char , int , char ) ;
 
 int main (){
 	
@@ -244,10 +244,10 @@ void NewGame ( int size , char OS , char ES ){
 		}
 	}
 	
-	game ( size , vec , OS , ES , es.heal ) ;
+	game ( size , vec , OS , ES , es.heal , es.type ) ;
 }
 
-void game ( int size , vector < vector < char > > vec , char OS , char ES , int es_h ){
+void game ( int size , vector < vector < char > > vec , char OS , char ES , int es_h , char es_t ){
 	
 	int heal = 3 ;
 	int point = 0 ;
@@ -320,8 +320,84 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							vec [i][j] = ' ' ;
 						}
 						else {
-							vec [i][j] = ' ' ;
-							vec [i - 1][j] = '^' ;
+							if ( vec [i - 1][j] == ES ){
+								vec [i][j] = ' ' ;
+								es_h -- ;
+								if ( es_h == 0 ){
+									
+									switch ( es_t ){
+										case 'd' : point += 2 ;
+											break ;
+										case 's' : point += 8 ;
+											break ;
+										case 'w' : point += 18 ;
+											break ;
+										case 'b' : point += 32 ;
+											break ;
+									}
+									
+									if ( point == 200 ){
+										level ++ ;
+										point = 0 ;
+									}
+									for ( int i = 0 ; i < size ; i ++ ){
+										for ( int j = 0 ; j < size ; j ++ ){
+											if ( vec [i][j] == ES ){
+												vec [i][j] = ' ' ;
+											}
+										}
+									}
+									E_S es = EnemySpaceship ( size ) ;
+									
+									int row = 0 ;
+									int col = es.loc ;
+									
+									if ( es.type == 'd' ){
+										vec [row][col] = ES ;
+										es_h = 1 ;
+									}
+									
+									if ( es.type == 's' ){
+										for ( int i = 0 ; i < 2 ; i ++ ){
+											for ( int j = 0 ; j < 2 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 2 ;
+										}
+										es_h = 2 ;
+									}
+									
+									if ( es.type == 'w' ){
+										for ( int i = 0 ; i < 3 ; i ++ ){
+											for ( int j = 0 ; j < 3 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 3 ;
+										}
+										es_h = 4 ;
+									}
+									
+									if ( es.type == 'b' ){
+										for ( int i = 0 ; i < 4 ; i ++ ){
+											for ( int j = 0 ; j < 4 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 4 ;
+										}
+										es_h = 6 ;
+									}
+								}
+							}
+							else {
+								vec [i][j] = ' ' ;
+								vec [i - 1][j] = '^' ;
+							}
 						}
 					}
 				}
@@ -347,8 +423,85 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							vec [i][j] = ' ' ;
 						}
 						else {
-							vec [i][j] = ' ' ;
-							vec [i + 1][j] = ES ;
+							if ( vec [i + 1][j] == '^' ){
+								vec [i][j] = ' ' ;
+								vec [i + 1][j] = ES ;
+								es_h -- ;
+								if ( es_h == 0 ){
+									
+									switch ( es_t ){
+										case 'd' : point += 2 ;
+											break ;
+										case 's' : point += 8 ;
+											break ;
+										case 'w' : point += 18 ;
+											break ;
+										case 'b' : point += 32 ;
+											break ;
+									}
+									
+									if ( point == 200 ){
+										level ++ ;
+										point = 0 ;
+									}
+									for ( int i = 0 ; i < size ; i ++ ){
+										for ( int j = 0 ; j < size ; j ++ ){
+											if ( vec [i][j] == ES ){
+												vec [i][j] = ' ' ;
+											}
+										}
+									}
+									E_S es = EnemySpaceship ( size ) ;
+									
+									int row = 0 ;
+									int col = es.loc ;
+									
+									if ( es.type == 'd' ){
+										vec [row][col] = ES ;
+										es_h = 1 ;
+									}
+									
+									if ( es.type == 's' ){
+										for ( int i = 0 ; i < 2 ; i ++ ){
+											for ( int j = 0 ; j < 2 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 2 ;
+										}
+										es_h = 2 ;
+									}
+									
+									if ( es.type == 'w' ){
+										for ( int i = 0 ; i < 3 ; i ++ ){
+											for ( int j = 0 ; j < 3 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 3 ;
+										}
+										es_h = 4 ;
+									}
+									
+									if ( es.type == 'b' ){
+										for ( int i = 0 ; i < 4 ; i ++ ){
+											for ( int j = 0 ; j < 4 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 4 ;
+										}
+										es_h = 6 ;
+									}
+								}
+							}
+							else {
+								vec [i][j] = ' ' ;
+								vec [i + 1][j] = ES ;
+							}
 						}
 					}
 				}
@@ -364,8 +517,84 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							vec [i][j] = ' ' ;
 						}
 						else {
-							vec [i][j] = ' ' ;
-							vec [i - 1][j] = '^' ;
+							if ( vec [i - 1][j] == ES ){
+								vec [i][j] = ' ' ;
+								es_h -- ;
+								if ( es_h == 0 ){
+									
+									switch ( es_t ){
+										case 'd' : point += 2 ;
+											break ;
+										case 's' : point += 8 ;
+											break ;
+										case 'w' : point += 18 ;
+											break ;
+										case 'b' : point += 32 ;
+											break ;
+									}
+									
+									if ( point == 200 ){
+										level ++ ;
+										point = 0 ;
+									}
+									for ( int i = 0 ; i < size ; i ++ ){
+										for ( int j = 0 ; j < size ; j ++ ){
+											if ( vec [i][j] == ES ){
+												vec [i][j] = ' ' ;
+											}
+										}
+									}
+									E_S es = EnemySpaceship ( size ) ;
+									
+									int row = 0 ;
+									int col = es.loc ;
+									
+									if ( es.type == 'd' ){
+										vec [row][col] = ES ;
+										es_h = 1 ;
+									}
+									
+									if ( es.type == 's' ){
+										for ( int i = 0 ; i < 2 ; i ++ ){
+											for ( int j = 0 ; j < 2 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 2 ;
+										}
+										es_h = 2 ;
+									}
+									
+									if ( es.type == 'w' ){
+										for ( int i = 0 ; i < 3 ; i ++ ){
+											for ( int j = 0 ; j < 3 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 3 ;
+										}
+										es_h = 4 ;
+									}
+									
+									if ( es.type == 'b' ){
+										for ( int i = 0 ; i < 4 ; i ++ ){
+											for ( int j = 0 ; j < 4 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 4 ;
+										}
+										es_h = 6 ;
+									}
+								}
+							}
+							else {
+								vec [i][j] = ' ' ;
+								vec [i - 1][j] = '^' ;
+							}
 						}
 					}
 				}
@@ -391,8 +620,85 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							vec [i][j] = ' ' ;
 						}
 						else {
-							vec [i][j] = ' ' ;
-							vec [i + 1][j] = ES ;
+							if ( vec [i + 1][j] == '^' ){
+								vec [i][j] = ' ' ;
+								vec [i + 1][j] = ES ;
+								es_h -- ;
+								if ( es_h == 0 ){
+									
+									switch ( es_t ){
+										case 'd' : point += 2 ;
+											break ;
+										case 's' : point += 8 ;
+											break ;
+										case 'w' : point += 18 ;
+											break ;
+										case 'b' : point += 32 ;
+											break ;
+									}
+									
+									if ( point == 200 ){
+										level ++ ;
+										point = 0 ;
+									}
+									for ( int i = 0 ; i < size ; i ++ ){
+										for ( int j = 0 ; j < size ; j ++ ){
+											if ( vec [i][j] == ES ){
+												vec [i][j] = ' ' ;
+											}
+										}
+									}
+									E_S es = EnemySpaceship ( size ) ;
+									
+									int row = 0 ;
+									int col = es.loc ;
+									
+									if ( es.type == 'd' ){
+										vec [row][col] = ES ;
+										es_h = 1 ;
+									}
+									
+									if ( es.type == 's' ){
+										for ( int i = 0 ; i < 2 ; i ++ ){
+											for ( int j = 0 ; j < 2 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 2 ;
+										}
+										es_h = 2 ;
+									}
+									
+									if ( es.type == 'w' ){
+										for ( int i = 0 ; i < 3 ; i ++ ){
+											for ( int j = 0 ; j < 3 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 3 ;
+										}
+										es_h = 4 ;
+									}
+									
+									if ( es.type == 'b' ){
+										for ( int i = 0 ; i < 4 ; i ++ ){
+											for ( int j = 0 ; j < 4 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 4 ;
+										}
+										es_h = 6 ;
+									}
+								}
+							}
+							else {
+								vec [i][j] = ' ' ;
+								vec [i + 1][j] = ES ;
+							}
 						}
 					}
 				}
@@ -408,8 +714,84 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							vec [i][j] = ' ' ;
 						}
 						else {
-							vec [i][j] = ' ' ;
-							vec [i - 1][j] = '^' ;
+							if ( vec [i - 1][j] == ES ){
+								vec [i][j] = ' ' ;
+								es_h -- ;
+								if ( es_h == 0 ){
+									
+									switch ( es_t ){
+										case 'd' : point += 2 ;
+											break ;
+										case 's' : point += 8 ;
+											break ;
+										case 'w' : point += 18 ;
+											break ;
+										case 'b' : point += 32 ;
+											break ;
+									}
+									
+									if ( point == 200 ){
+										level ++ ;
+										point = 0 ;
+									}
+									for ( int i = 0 ; i < size ; i ++ ){
+										for ( int j = 0 ; j < size ; j ++ ){
+											if ( vec [i][j] == ES ){
+												vec [i][j] = ' ' ;
+											}
+										}
+									}
+									E_S es = EnemySpaceship ( size ) ;
+									
+									int row = 0 ;
+									int col = es.loc ;
+									
+									if ( es.type == 'd' ){
+										vec [row][col] = ES ;
+										es_h = 1 ;
+									}
+									
+									if ( es.type == 's' ){
+										for ( int i = 0 ; i < 2 ; i ++ ){
+											for ( int j = 0 ; j < 2 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 2 ;
+										}
+										es_h = 2 ;
+									}
+									
+									if ( es.type == 'w' ){
+										for ( int i = 0 ; i < 3 ; i ++ ){
+											for ( int j = 0 ; j < 3 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 3 ;
+										}
+										es_h = 4 ;
+									}
+									
+									if ( es.type == 'b' ){
+										for ( int i = 0 ; i < 4 ; i ++ ){
+											for ( int j = 0 ; j < 4 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 4 ;
+										}
+										es_h = 6 ;
+									}
+								}
+							}
+							else {
+								vec [i][j] = ' ' ;
+								vec [i - 1][j] = '^' ;
+							}
 						}
 					}
 				}
@@ -428,8 +810,85 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							vec [i][j] = ' ' ;
 						}
 						else {
-							vec [i][j] = ' ' ;
-							vec [i + 1][j] = ES ;
+							if ( vec [i + 1][j] == '^' ){
+								vec [i][j] = ' ' ;
+								vec [i + 1][j] = ES ;
+								es_h -- ;
+								if ( es_h == 0 ){
+									
+									switch ( es_t ){
+										case 'd' : point += 2 ;
+											break ;
+										case 's' : point += 8 ;
+											break ;
+										case 'w' : point += 18 ;
+											break ;
+										case 'b' : point += 32 ;
+											break ;
+									}
+									
+									if ( point == 200 ){
+										level ++ ;
+										point = 0 ;
+									}
+									for ( int i = 0 ; i < size ; i ++ ){
+										for ( int j = 0 ; j < size ; j ++ ){
+											if ( vec [i][j] == ES ){
+												vec [i][j] = ' ' ;
+											}
+										}
+									}
+									E_S es = EnemySpaceship ( size ) ;
+									
+									int row = 0 ;
+									int col = es.loc ;
+									
+									if ( es.type == 'd' ){
+										vec [row][col] = ES ;
+										es_h = 1 ;
+									}
+									
+									if ( es.type == 's' ){
+										for ( int i = 0 ; i < 2 ; i ++ ){
+											for ( int j = 0 ; j < 2 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 2 ;
+										}
+										es_h = 2 ;
+									}
+									
+									if ( es.type == 'w' ){
+										for ( int i = 0 ; i < 3 ; i ++ ){
+											for ( int j = 0 ; j < 3 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 3 ;
+										}
+										es_h = 4 ;
+									}
+									
+									if ( es.type == 'b' ){
+										for ( int i = 0 ; i < 4 ; i ++ ){
+											for ( int j = 0 ; j < 4 ; j ++ ){
+												vec [row][col] = ES ;
+												col ++ ;
+											}
+											row ++ ;
+											col -= 4 ;
+										}
+										es_h = 6 ;
+									}
+								}
+							}
+							else {
+								vec [i][j] = ' ' ;
+								vec [i + 1][j] = ES ;
+							}
 						}
 					}
 				}
