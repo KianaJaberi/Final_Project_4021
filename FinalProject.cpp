@@ -19,7 +19,7 @@ struct E_S{
 F_P FirstPage () ; //first page
 char menu () ; //menu
 E_S EnemySpaceship ( int ) ;
-void NewGame ( int , vector < vector < char > > , char , char ) ;
+void NewGame ( int , char , char ) ;
 void game ( int , vector < vector < char > > , char , char , int ) ;
 
 int main (){
@@ -29,15 +29,9 @@ int main (){
 	
 	char me = menu () ; //menu entry
 	system ("cls") ; //for clear menu
-	
-	vector < vector < char > > vec ( fp.size , vector < char > ( fp.size ) ) ;
-	
-	for ( int i = 0 ; i < fp.size ; i ++ )
-		for ( int j = 0 ; j < fp.size ; j ++ )
-			vec [i][j] = ' ' ;
 			
 	if ( me == 'n' ){
-		NewGame ( fp.size , vec , fp.OS , fp.ES ) ;
+		NewGame ( fp.size , fp.OS , fp.ES ) ;
 	}
 	
 	if ( me == 'c' ){
@@ -47,6 +41,7 @@ int main (){
 	}
 	
 	if ( me == 'e' ){
+		exit (0) ;
 	}
 	
 	return 0 ;
@@ -139,8 +134,8 @@ char menu (){
 		cout << "enemies status (s)" << endl ;
 		
 		SetConsoleTextAttribute ( color , 15 ) ;
-		cout << "exit (e)" << endl << endl ;
-		
+		cout << "exit (e)" << endl ;
+
 		cin >> input ;
 		
 		if ( input != 'n' && input != 'c' && input != 's' && input != 'e' ){
@@ -194,7 +189,13 @@ E_S EnemySpaceship ( int size ){
 	return ES ;
 }
 
-void NewGame ( int size , vector < vector < char > > vec , char OS , char ES ){
+void NewGame ( int size , char OS , char ES ){
+	
+	vector < vector < char > > vec ( size , vector < char > ( size ) ) ;
+	
+	for ( int i = 0 ; i < size ; i ++ )
+		for ( int j = 0 ; j < size ; j ++ )
+			vec [i][j] = ' ' ;
 	
 	E_S es = EnemySpaceship ( size ) ;
 	
@@ -399,9 +400,59 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 		}
 		
 		if ( input == 'i' ){
+			
+			for ( int i = 0 ; i < size ; i ++ ){ //for bullet
+				for ( int j = 0 ; j < size ; j ++ ){
+					if ( vec [i][j] == '^' ){
+						if ( ( i - 1 ) == -1 ){
+							vec [i][j] = ' ' ;
+						}
+						else {
+							vec [i][j] = ' ' ;
+							vec [i - 1][j] = '^' ;
+						}
+					}
+				}
+			}
+			
+			for ( int j = 0 ; j < size ; j ++ ){ //for our spaceship
+				if ( vec [ size - 1 ][j] == OS ){
+					vec [ size - 2 ][j] = '^' ;
+				}
+			}
+			
+			for ( int i = ( size - 1 ) ; i >= 0 ; i -- ){ // for enemy spaceship
+				for ( int j = ( size - 1 ) ; j >= 0 ; j -- ){
+					if ( vec [i][j] == ES ){
+						if ( ( i + 1 ) == size ){
+							vec [i][j] = ' ' ;
+						}
+						else {
+							vec [i][j] = ' ' ;
+							vec [i + 1][j] = ES ;
+						}
+					}
+				}
+			}
 		}
 		
 		if ( input == 'm' ){
+			
+			input = menu () ;
+			
+			if ( input == 'n' ){
+				NewGame ( size , OS , ES ) ;
+			}
+			
+			if ( input == 'c' ){
+			}
+			
+			if ( input == 's' ){
+			}
+			
+			if ( input == 'e' ){
+				exit (0) ;
+			}
 		}
 	}
 	
