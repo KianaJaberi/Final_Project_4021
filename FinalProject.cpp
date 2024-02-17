@@ -1,6 +1,7 @@
 #include <iostream>
 #include <windows.h> //for color and system clear
 #include <ctime>
+#include <vector>
 
 using namespace std ;
 
@@ -18,6 +19,7 @@ struct E_S{
 F_P FirstPage () ; //first page
 char menu () ; //menu
 E_S EnemySpaceship ( int ) ;
+void NewGame ( int , vector < vector < char > > , char , char ) ;
 
 int main (){
 	
@@ -26,8 +28,15 @@ int main (){
 	
 	char me = menu () ; //menu entry
 	system ("cls") ; //for clear menu
+	
+	vector < vector < char > > vec ( fp.size , vector < char > ( fp.size ) ) ;
+	
+	for ( int i = 0 ; i < fp.size ; i ++ )
+		for ( int j = 0 ; j < fp.size ; j ++ )
+			vec [i][j] = ' ' ;
 			
 	if ( me == 'n' ){
+		NewGame ( fp.size , vec , fp.OS , fp.ES ) ;
 	}
 	
 	if ( me == 'c' ){
@@ -182,4 +191,55 @@ E_S EnemySpaceship ( int size ){
 	}
 	
 	return ES ;
+}
+
+void NewGame ( int size , vector < vector < char > > vec , char OS , char ES ){
+	
+	E_S es = EnemySpaceship ( size ) ;
+	
+	HANDLE color ;
+	color = GetStdHandle ( STD_OUTPUT_HANDLE ) ;
+	
+	vec [ size - 1 ][ size / 2 ] = OS ;
+	
+	int row = 0 ;
+	int col = es.loc ;
+	
+	if ( es.type == 'd' ){
+		vec [row][col] = ES ;
+	}
+	
+	if ( es.type == 's' ){
+		for ( int i = 0 ; i < 2 ; i ++ ){
+			for ( int j = 0 ; j < 2 ; j ++ ){
+				vec [row][col] = ES ;
+				col ++ ;
+			}
+			row ++ ;
+			col -= 2 ;
+		}
+	}
+	
+	if ( es.type == 'w' ){
+		for ( int i = 0 ; i < 3 ; i ++ ){
+			for ( int j = 0 ; j < 3 ; j ++ ){
+				vec [row][col] = ES ;
+				col ++ ;
+			}
+			row ++ ;
+			col -= 3 ;
+		}
+	}
+	
+	if ( es.type == 'b' ){
+		for ( int i = 0 ; i < 4 ; i ++ ){
+			for ( int j = 0 ; j < 4 ; j ++ ){
+				vec [row][col] = ES ;
+				col ++ ;
+			}
+			row ++ ;
+			col -= 4 ;
+		}
+	}
+	
 }
