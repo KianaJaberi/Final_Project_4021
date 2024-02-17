@@ -15,12 +15,17 @@ struct E_S{
 	char heal ;
 	int loc ;
 };
+struct status {
+	int heal ;
+	int point ;
+	int level ;
+};
 
 F_P FirstPage () ; //first page
 char menu () ; //menu
 E_S EnemySpaceship ( int ) ;
 void NewGame ( int , char , char ) ;
-void game ( int , vector < vector < char > > , char , char , int , char ) ;
+void game ( int , vector < vector < char > > , char , char , int , char , status ) ;
 
 int main (){
 	
@@ -244,14 +249,19 @@ void NewGame ( int size , char OS , char ES ){
 		}
 	}
 	
-	game ( size , vec , OS , ES , es.heal , es.type ) ;
+	status s ;
+	s.heal = 3 ;
+	s.point = 0 ;
+	s.level = 0 ;
+	
+	game ( size , vec , OS , ES , es.heal , es.type , s ) ;
 }
 
-void game ( int size , vector < vector < char > > vec , char OS , char ES , int es_h , char es_t ){
+void game ( int size , vector < vector < char > > vec , char OS , char ES , int es_h , char es_t , status s ){
 	
-	int heal = 3 ;
-	int point = 0 ;
-	int level = 0 ;
+	int heal = s.heal ;
+	int point = s.point ;
+	int level = s.level ;
 	char input ;
 	
 	HANDLE color ;
@@ -336,9 +346,9 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											break ;
 									}
 									
-									if ( point == 200 ){
+									if ( point >= 200 ){
 										level ++ ;
-										point = 0 ;
+										point -= 200 ;
 									}
 									for ( int i = 0 ; i < size ; i ++ ){
 										for ( int j = 0 ; j < size ; j ++ ){
@@ -440,9 +450,9 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											break ;
 									}
 									
-									if ( point == 200 ){
+									if ( point >= 200 ){
 										level ++ ;
-										point = 0 ;
+										point -= 200 ;
 									}
 									for ( int i = 0 ; i < size ; i ++ ){
 										for ( int j = 0 ; j < size ; j ++ ){
@@ -533,9 +543,9 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											break ;
 									}
 									
-									if ( point == 200 ){
+									if ( point >= 200 ){
 										level ++ ;
-										point = 0 ;
+										point -= 200 ;
 									}
 									for ( int i = 0 ; i < size ; i ++ ){
 										for ( int j = 0 ; j < size ; j ++ ){
@@ -637,9 +647,9 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											break ;
 									}
 									
-									if ( point == 200 ){
+									if ( point >= 200 ){
 										level ++ ;
-										point = 0 ;
+										point -= 200 ;
 									}
 									for ( int i = 0 ; i < size ; i ++ ){
 										for ( int j = 0 ; j < size ; j ++ ){
@@ -730,9 +740,9 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											break ;
 									}
 									
-									if ( point == 200 ){
+									if ( point >= 200 ){
 										level ++ ;
-										point = 0 ;
+										point -= 200 ;
 									}
 									for ( int i = 0 ; i < size ; i ++ ){
 										for ( int j = 0 ; j < size ; j ++ ){
@@ -827,9 +837,9 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											break ;
 									}
 									
-									if ( point == 200 ){
+									if ( point >= 200 ){
 										level ++ ;
-										point = 0 ;
+										point -= 200 ;
 									}
 									for ( int i = 0 ; i < size ; i ++ ){
 										for ( int j = 0 ; j < size ; j ++ ){
