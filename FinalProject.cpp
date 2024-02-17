@@ -1,5 +1,6 @@
 #include <iostream>
 #include <windows.h> //for color and system clear
+#include <ctime>
 
 using namespace std ;
 
@@ -8,9 +9,15 @@ struct F_P {
 	char ES ;  //enemy spaceship
 	int size ; //table size
 };
+struct E_S{
+	char type ;
+	char heal ;
+	int loc ;
+};
 
 F_P FirstPage () ; //first page
 char menu () ; //menu
+E_S EnemySpaceship ( int ) ;
 
 int main (){
 	
@@ -49,10 +56,10 @@ F_P FirstPage (){
 	
 		while ( true ){ //our spaceship
 			SetConsoleTextAttribute ( color , 3 ) ;
-			cout << "select your spaceship ( @ , # , $ , & or * ) : " ;
+			cout << "select your spaceship ( # or * ) : " ;
 			cin >> f.OS ;
 			
-			if ( f.OS != '@' && f.OS != '#' && f.OS != '$' && f.OS != '&' && f.OS != '*' ){
+			if ( f.OS != '#' && f.OS != '*' ){
 				SetConsoleTextAttribute ( color , 4 ) ;
 				cout << "wrong choise !" << endl ;
 				continue ;
@@ -62,10 +69,10 @@ F_P FirstPage (){
 		
 		while ( true ){ //enemy spaceship
 			SetConsoleTextAttribute ( color , 3 ) ;
-			cout << "select enemy spaceship ( @ , # , $ , & or * ) : " ;
+			cout << "select enemy spaceship ( # or * ) : " ;
 			cin >> f.ES ;
 			
-			if ( f.ES != '@' && f.ES != '#' && f.ES != '$' && f.ES != '&' && f.ES != '*' ){
+			if ( f.ES != '#' && f.ES != '*' ){
 				SetConsoleTextAttribute ( color , 4 ) ;
 				cout << "wrong choise !" << endl ;
 				continue ;
@@ -134,4 +141,45 @@ char menu (){
 		break ;
 	}
 	return input ;
+}
+
+E_S EnemySpaceship ( int size ){
+		
+	E_S ES ;
+		
+	srand ( time (0) ) ;
+	
+	int random = rand () % 4 ;
+		
+	switch ( random ){
+		case 0 : ES.type = 'd' , ES.heal = 1 ; //type : dart
+			break ;
+		case 1 : ES.type = 's' , ES.heal = 2 ; //type : Striker
+			break ;
+		case 2 : ES.type = 'w' , ES.heal = 4 ; //type : Wraith
+			break ;
+		case 3 : ES.type = 'b' , ES.heal = 6 ; //type : Banshee
+			break ;
+	}
+	
+	while ( true ){
+	
+		switch ( ES.type ){
+			case 'd' : ES.loc = rand () % size ;
+				break ;
+			case 's' : ES.loc = rand () % size + 1 ;
+				break ;
+			case 'w' : ES.loc = rand () % size + 2 ;
+				break ;
+			case 'b' : ES.loc = rand () % size + 3 ;
+				break ;
+		}
+		
+		if ( ES.loc >= size )
+			continue ;
+		
+		break ;
+	}
+	
+	return ES ;
 }
