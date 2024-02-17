@@ -20,6 +20,7 @@ F_P FirstPage () ; //first page
 char menu () ; //menu
 E_S EnemySpaceship ( int ) ;
 void NewGame ( int , vector < vector < char > > , char , char ) ;
+void game ( int , vector < vector < char > > , char , char , int ) ;
 
 int main (){
 	
@@ -239,6 +240,168 @@ void NewGame ( int size , vector < vector < char > > vec , char OS , char ES ){
 			}
 			row ++ ;
 			col -= 4 ;
+		}
+	}
+	
+	game ( size , vec , OS , ES , es.heal ) ;
+}
+
+void game ( int size , vector < vector < char > > vec , char OS , char ES , int es_h ){
+	
+	int heal = 3 ;
+	int point = 0 ;
+	int level = 0 ;
+	char input ;
+	
+	HANDLE color ;
+	color = GetStdHandle ( STD_OUTPUT_HANDLE ) ;
+	
+	while ( heal != 0 ){
+		
+		SetConsoleTextAttribute ( color , 10 ) ;
+		cout << "our heal : " << heal << endl ;
+		
+		SetConsoleTextAttribute ( color , 11 ) ;
+		cout << "enemy spaceship heal : " << es_h << endl ;
+		
+		SetConsoleTextAttribute ( color , 14 ) ;
+		cout << "point : " << point << endl ;
+		
+		SetConsoleTextAttribute ( color , 13 ) ;
+		cout << "level : " << level << endl << endl ;
+		
+		SetConsoleTextAttribute ( color , 15 ) ;
+		for ( int i = 0 ; i < size ; i ++ ){
+			
+			for ( int j = 0 ; j < size ; j ++ )
+				cout << " ---" ;
+			
+			cout << endl ;
+			
+			for ( int j = 0 ; j < size ; j ++ ){
+				cout << "| " ;
+				
+				if ( vec [i][j] == OS )
+					cout << OS << " " ;
+				if ( vec [i][j] == ES )
+					cout << ES << " " ;
+				if ( vec [i][j] == '^' )
+					cout << "^ " ;
+				if ( vec [i][j] == ' ' )
+					cout << "  " ;
+			}
+			cout << "|" << endl ;
+		}
+		for ( int i = 0 ; i < size ; i ++ )
+			cout << " ---" ;
+		cout << endl ;
+		
+		while ( true ){
+		
+			SetConsoleTextAttribute ( color , 5 ) ;
+			cout << "right (r) or left (l) or in its place (i) or menu (m) : " ;
+			cin >> input ;
+			
+			if ( input != 'r' && input != 'l' && input != 'i' && input != 'm' )
+				continue ;
+				
+			break ;
+		}
+		
+		system ("cls") ;
+		
+		if ( input == 'r' ){
+			
+			for ( int i = 0 ; i < size ; i ++ ){ //for bullet
+				for ( int j = 0 ; j < size ; j ++ ){
+					if ( vec [i][j] == '^' ){
+						if ( ( i - 1 ) == -1 ){
+							vec [i][j] = ' ' ;
+						}
+						else {
+							vec [i][j] = ' ' ;
+							vec [i - 1][j] = '^' ;
+						}
+					}
+				}
+			}
+			
+			for ( int j = ( size - 1 ) ; j >= 0 ; j -- ){ //for our spaceship
+				if ( vec [ size - 1 ][j] == OS ){
+					if ( ( j + 1 ) == size ){
+						vec [ size - 2 ][j] = '^' ;
+					}
+					else {
+						vec [ size - 1 ][j] = ' ' ;
+						vec [ size - 1 ][j + 1] = OS ;
+						vec [ size - 2 ][j + 1] = '^' ;
+					}
+				}
+			}
+			
+			for ( int i = ( size - 1 ) ; i >= 0 ; i -- ){ // for enemy spaceship
+				for ( int j = ( size - 1 ) ; j >= 0 ; j -- ){
+					if ( vec [i][j] == ES ){
+						if ( ( i + 1 ) == size ){
+							vec [i][j] = ' ' ;
+						}
+						else {
+							vec [i][j] = ' ' ;
+							vec [i + 1][j] = ES ;
+						}
+					}
+				}
+			}
+		}
+		
+		if ( input == 'l' ){
+			
+			for ( int i = 0 ; i < size ; i ++ ){ //for bullet
+				for ( int j = 0 ; j < size ; j ++ ){
+					if ( vec [i][j] == '^' ){
+						if ( ( i - 1 ) == -1 ){
+							vec [i][j] = ' ' ;
+						}
+						else {
+							vec [i][j] = ' ' ;
+							vec [i - 1][j] = '^' ;
+						}
+					}
+				}
+			}
+			
+			for ( int j = 0 ; j < size ; j ++ ){ //for our spaceship
+				if ( vec [ size - 1 ][j] == OS ){
+					if ( ( j - 1 ) == -1 ){
+						vec [ size - 2 ][j] = '^' ;
+					}
+					else {
+						vec [ size - 1 ][j] = ' ' ;
+						vec [ size - 1 ][j - 1] = OS ;
+						vec [ size - 2 ][j - 1] = '^' ;
+					}
+				}
+			}
+			
+			for ( int i = ( size - 1 ) ; i >= 0 ; i -- ){ // for enemy spaceship
+				for ( int j = ( size - 1 ) ; j >= 0 ; j -- ){
+					if ( vec [i][j] == ES ){
+						if ( ( i + 1 ) == size ){
+							vec [i][j] = ' ' ;
+						}
+						else {
+							vec [i][j] = ' ' ;
+							vec [i + 1][j] = ES ;
+						}
+					}
+				}
+			}
+		}
+		
+		if ( input == 'i' ){
+		}
+		
+		if ( input == 'm' ){
 		}
 	}
 	
