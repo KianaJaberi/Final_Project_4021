@@ -34,15 +34,15 @@ int main (){
 		switch ( type ){
 			case 'd' : loc = rand () % size ;
 				break ;
-			case 's' : loc = rand () % size + 1 ;
+			case 's' : loc = rand () % ( size - 1 ) ;
 				break ;
-			case 'w' : loc = rand () % size + 2 ;
+			case 'w' : loc = rand () % ( size - 2 ) ;
 				break ;
-			case 'b' : loc = rand () % size + 3 ;
+			case 'b' : loc = rand () % ( size - 3 ) ;
 				break ;
 		}
 		
-		if ( loc > size )
+		if ( loc >= size )
 			continue ;
 		
 		break ;
