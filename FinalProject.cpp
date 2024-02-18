@@ -177,11 +177,11 @@ E_S EnemySpaceship ( int size ){
 		switch ( ES.type ){
 			case 'd' : ES.loc = rand () % size ;
 				break ;
-			case 's' : ES.loc = rand () % size + 1 ;
+			case 's' : ES.loc = rand () % ( size - 1 ) ;
 				break ;
-			case 'w' : ES.loc = rand () % size + 2 ;
+			case 'w' : ES.loc = rand () % ( size - 2 ) ;
 				break ;
-			case 'b' : ES.loc = rand () % size + 3 ;
+			case 'b' : ES.loc = rand () % ( size - 3 ) ;
 				break ;
 		}
 		
