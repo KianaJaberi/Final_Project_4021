@@ -26,6 +26,7 @@ char menu () ; //menu
 E_S EnemySpaceship ( int ) ;
 void NewGame ( int , char , char ) ;
 void game ( int , vector < vector < char > > , char , char , int , char , status ) ;
+bool finding ( vector < vector < char > > , int , char ) ;
 
 int main (){
 	
@@ -263,11 +264,12 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 	int point = s.point ;
 	int level = s.level ;
 	char input ;
+	bool flag ;
 	
 	HANDLE color ;
 	color = GetStdHandle ( STD_OUTPUT_HANDLE ) ;
 	
-	while ( heal != 0 ){
+	while ( heal > 0 ){
 		
 		SetConsoleTextAttribute ( color , 10 ) ;
 		cout << "our heal : " << heal << endl ;
@@ -904,6 +906,55 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 				}
 			}
 		}
+		flag = finding ( vec , size , ES ) ;
+		if ( flag == true ){
+			heal -- ;
+			E_S es = EnemySpaceship ( size ) ;
+				
+			int row = 0 ;
+			int col = es.loc ;
+					
+			if ( es.type == 'd' ){
+				vec [row][col] = ES ;
+				es_h = 1 ;
+			}
+									
+			if ( es.type == 's' ){
+				for ( int i = 0 ; i < 2 ; i ++ ){
+					for ( int j = 0 ; j < 2 ; j ++ ){
+						vec [row][col] = ES ;
+						col ++ ;
+					}
+					row ++ ;
+					col -= 2 ;
+				}
+				es_h = 2 ;
+			}
+									
+			if ( es.type == 'w' ){
+				for ( int i = 0 ; i < 3 ; i ++ ){
+					for ( int j = 0 ; j < 3 ; j ++ ){
+						vec [row][col] = ES ;
+						col ++ ;
+					}
+					row ++ ;
+					col -= 3 ;
+				}
+				es_h = 4 ;
+			}
+									
+			if ( es.type == 'b' ){
+				for ( int i = 0 ; i < 4 ; i ++ ){
+					for ( int j = 0 ; j < 4 ; j ++ ){
+						vec [row][col] = ES ;
+						col ++ ;
+					}
+					row ++ ;
+					col -= 4 ;
+				}
+				es_h = 6 ;
+			}
+		}
 		
 		if ( input == 'm' ){
 			
@@ -925,4 +976,16 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 		}
 	}
 	
+}
+
+bool finding ( vector < vector < char > > vec , int size , char ES ){
+	
+	bool flag = true ;
+	
+	for ( int i = 0 ; i < size ; i ++ )
+		for ( int j = 0 ; j < size ; j ++ )
+			if ( vec [i][j] == ES )
+				flag = false ;
+				
+	return flag ;
 }
