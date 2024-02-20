@@ -364,16 +364,16 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										}
 									}
 									E_S es = EnemySpaceship ( size ) ;
-									
+									es_t = es.type ;
 									int row = 0 ;
 									int col = es.loc ;
 									
-									if ( es.type == 'd' ){
+									if ( es_t == 'd' ){
 										vec [row][col] = ES ;
 										es_h = 1 ;
 									}
 									
-									if ( es.type == 's' ){
+									if ( es_t == 's' ){
 										for ( int i = 0 ; i < 2 ; i ++ ){
 											for ( int j = 0 ; j < 2 ; j ++ ){
 												vec [row][col] = ES ;
@@ -385,7 +385,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 2 ;
 									}
 									
-									if ( es.type == 'w' ){
+									if ( es_t == 'w' ){
 										for ( int i = 0 ; i < 3 ; i ++ ){
 											for ( int j = 0 ; j < 3 ; j ++ ){
 												vec [row][col] = ES ;
@@ -397,7 +397,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 4 ;
 									}
 									
-									if ( es.type == 'b' ){
+									if ( es_t == 'b' ){
 										for ( int i = 0 ; i < 4 ; i ++ ){
 											for ( int j = 0 ; j < 4 ; j ++ ){
 												vec [row][col] = ES ;
@@ -431,16 +431,17 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							}
 						}
 						E_S es = EnemySpaceship ( size ) ;
+						es_t = es.type ;
 									
 						int row = 0 ;
 						int col = es.loc ;
 									
-						if ( es.type == 'd' ){
+						if ( es_t == 'd' ){
 							vec [row][col] = ES ;
 							es_h = 1 ;
 						}
 									
-						if ( es.type == 's' ){
+						if ( es_t == 's' ){
 							for ( int i = 0 ; i < 2 ; i ++ ){
 								for ( int j = 0 ; j < 2 ; j ++ ){
 									vec [row][col] = ES ;
@@ -452,7 +453,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							es_h = 2 ;
 						}
 									
-						if ( es.type == 'w' ){
+						if ( es_t == 'w' ){
 							for ( int i = 0 ; i < 3 ; i ++ ){
 								for ( int j = 0 ; j < 3 ; j ++ ){
 									vec [row][col] = ES ;
@@ -464,7 +465,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							es_h = 4 ;
 						}
 									
-						if ( es.type == 'b' ){
+						if ( es_t == 'b' ){
 							for ( int i = 0 ; i < 4 ; i ++ ){
 								for ( int j = 0 ; j < 4 ; j ++ ){
 									vec [row][col] = ES ;
@@ -523,16 +524,17 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										}
 									}
 									E_S es = EnemySpaceship ( size ) ;
+									es_t = es.type ;
 									
 									int row = 0 ;
 									int col = es.loc ;
 									
-									if ( es.type == 'd' ){
+									if ( es_t == 'd' ){
 										vec [row][col] = ES ;
 										es_h = 1 ;
 									}
 									
-									if ( es.type == 's' ){
+									if ( es_t == 's' ){
 										for ( int i = 0 ; i < 2 ; i ++ ){
 											for ( int j = 0 ; j < 2 ; j ++ ){
 												vec [row][col] = ES ;
@@ -544,7 +546,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 2 ;
 									}
 									
-									if ( es.type == 'w' ){
+									if ( es_t == 'w' ){
 										for ( int i = 0 ; i < 3 ; i ++ ){
 											for ( int j = 0 ; j < 3 ; j ++ ){
 												vec [row][col] = ES ;
@@ -556,7 +558,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 4 ;
 									}
 									
-									if ( es.type == 'b' ){
+									if ( es_t == 'b' ){
 										for ( int i = 0 ; i < 4 ; i ++ ){
 											for ( int j = 0 ; j < 4 ; j ++ ){
 												vec [row][col] = ES ;
@@ -616,16 +618,17 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										}
 									}
 									E_S es = EnemySpaceship ( size ) ;
+									es_t = es.type ;
 									
 									int row = 0 ;
 									int col = es.loc ;
 									
-									if ( es.type == 'd' ){
+									if ( es_t == 'd' ){
 										vec [row][col] = ES ;
 										es_h = 1 ;
 									}
 									
-									if ( es.type == 's' ){
+									if ( es_t == 's' ){
 										for ( int i = 0 ; i < 2 ; i ++ ){
 											for ( int j = 0 ; j < 2 ; j ++ ){
 												vec [row][col] = ES ;
@@ -637,7 +640,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 2 ;
 									}
 									
-									if ( es.type == 'w' ){
+									if ( es_t == 'w' ){
 										for ( int i = 0 ; i < 3 ; i ++ ){
 											for ( int j = 0 ; j < 3 ; j ++ ){
 												vec [row][col] = ES ;
@@ -649,7 +652,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 4 ;
 									}
 									
-									if ( es.type == 'b' ){
+									if ( es_t == 'b' ){
 										for ( int i = 0 ; i < 4 ; i ++ ){
 											for ( int j = 0 ; j < 4 ; j ++ ){
 												vec [row][col] = ES ;
@@ -683,16 +686,17 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							}
 						}
 						E_S es = EnemySpaceship ( size ) ;
+						es_t = es.type ;
 									
 						int row = 0 ;
 						int col = es.loc ;
 									
-						if ( es.type == 'd' ){
+						if ( es_t == 'd' ){
 							vec [row][col] = ES ;
 							es_h = 1 ;
 						}
 									
-						if ( es.type == 's' ){
+						if ( es_t == 's' ){
 							for ( int i = 0 ; i < 2 ; i ++ ){
 								for ( int j = 0 ; j < 2 ; j ++ ){
 									vec [row][col] = ES ;
@@ -704,7 +708,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							es_h = 2 ;
 						}
 									
-						if ( es.type == 'w' ){
+						if ( es_t == 'w' ){
 							for ( int i = 0 ; i < 3 ; i ++ ){
 								for ( int j = 0 ; j < 3 ; j ++ ){
 									vec [row][col] = ES ;
@@ -716,7 +720,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							es_h = 4 ;
 						}
 									
-						if ( es.type == 'b' ){
+						if ( es_t == 'b' ){
 							for ( int i = 0 ; i < 4 ; i ++ ){
 								for ( int j = 0 ; j < 4 ; j ++ ){
 									vec [row][col] = ES ;
@@ -775,16 +779,17 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										}
 									}
 									E_S es = EnemySpaceship ( size ) ;
+									es_t = es.type ;
 									
 									int row = 0 ;
 									int col = es.loc ;
 									
-									if ( es.type == 'd' ){
+									if ( es_t == 'd' ){
 										vec [row][col] = ES ;
 										es_h = 1 ;
 									}
 									
-									if ( es.type == 's' ){
+									if ( es_t == 's' ){
 										for ( int i = 0 ; i < 2 ; i ++ ){
 											for ( int j = 0 ; j < 2 ; j ++ ){
 												vec [row][col] = ES ;
@@ -796,7 +801,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 2 ;
 									}
 									
-									if ( es.type == 'w' ){
+									if ( es_t == 'w' ){
 										for ( int i = 0 ; i < 3 ; i ++ ){
 											for ( int j = 0 ; j < 3 ; j ++ ){
 												vec [row][col] = ES ;
@@ -808,7 +813,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 4 ;
 									}
 									
-									if ( es.type == 'b' ){
+									if ( es_t == 'b' ){
 										for ( int i = 0 ; i < 4 ; i ++ ){
 											for ( int j = 0 ; j < 4 ; j ++ ){
 												vec [row][col] = ES ;
@@ -868,16 +873,17 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										}
 									}
 									E_S es = EnemySpaceship ( size ) ;
+									es_t = es.type ;
 									
 									int row = 0 ;
 									int col = es.loc ;
 									
-									if ( es.type == 'd' ){
+									if ( es_t == 'd' ){
 										vec [row][col] = ES ;
 										es_h = 1 ;
 									}
 									
-									if ( es.type == 's' ){
+									if ( es_t == 's' ){
 										for ( int i = 0 ; i < 2 ; i ++ ){
 											for ( int j = 0 ; j < 2 ; j ++ ){
 												vec [row][col] = ES ;
@@ -889,7 +895,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 2 ;
 									}
 									
-									if ( es.type == 'w' ){
+									if ( es_t == 'w' ){
 										for ( int i = 0 ; i < 3 ; i ++ ){
 											for ( int j = 0 ; j < 3 ; j ++ ){
 												vec [row][col] = ES ;
@@ -901,7 +907,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 4 ;
 									}
 									
-									if ( es.type == 'b' ){
+									if ( es_t == 'b' ){
 										for ( int i = 0 ; i < 4 ; i ++ ){
 											for ( int j = 0 ; j < 4 ; j ++ ){
 												vec [row][col] = ES ;
@@ -965,16 +971,17 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										}
 									}
 									E_S es = EnemySpaceship ( size ) ;
+									es_t = es.type ;
 									
 									int row = 0 ;
 									int col = es.loc ;
 									
-									if ( es.type == 'd' ){
+									if ( es_t == 'd' ){
 										vec [row][col] = ES ;
 										es_h = 1 ;
 									}
 									
-									if ( es.type == 's' ){
+									if ( es_t == 's' ){
 										for ( int i = 0 ; i < 2 ; i ++ ){
 											for ( int j = 0 ; j < 2 ; j ++ ){
 												vec [row][col] = ES ;
@@ -986,7 +993,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 2 ;
 									}
 									
-									if ( es.type == 'w' ){
+									if ( es_t == 'w' ){
 										for ( int i = 0 ; i < 3 ; i ++ ){
 											for ( int j = 0 ; j < 3 ; j ++ ){
 												vec [row][col] = ES ;
@@ -998,7 +1005,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										es_h = 4 ;
 									}
 									
-									if ( es.type == 'b' ){
+									if ( es_t == 'b' ){
 										for ( int i = 0 ; i < 4 ; i ++ ){
 											for ( int j = 0 ; j < 4 ; j ++ ){
 												vec [row][col] = ES ;
@@ -1024,16 +1031,17 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 		if ( flag == true ){
 			heal -- ;
 			E_S es = EnemySpaceship ( size ) ;
+			es_t = es.type ;
 				
 			int row = 0 ;
 			int col = es.loc ;
 					
-			if ( es.type == 'd' ){
+			if ( es_t == 'd' ){
 				vec [row][col] = ES ;
 				es_h = 1 ;
 			}
 									
-			if ( es.type == 's' ){
+			if ( es_t == 's' ){
 				for ( int i = 0 ; i < 2 ; i ++ ){
 					for ( int j = 0 ; j < 2 ; j ++ ){
 						vec [row][col] = ES ;
@@ -1045,7 +1053,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 				es_h = 2 ;
 			}
 									
-			if ( es.type == 'w' ){
+			if ( es_t == 'w' ){
 				for ( int i = 0 ; i < 3 ; i ++ ){
 					for ( int j = 0 ; j < 3 ; j ++ ){
 						vec [row][col] = ES ;
@@ -1057,7 +1065,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 				es_h = 4 ;
 			}
 									
-			if ( es.type == 'b' ){
+			if ( es_t == 'b' ){
 				for ( int i = 0 ; i < 4 ; i ++ ){
 					for ( int j = 0 ; j < 4 ; j ++ ){
 						vec [row][col] = ES ;
