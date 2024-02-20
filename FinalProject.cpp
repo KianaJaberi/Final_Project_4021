@@ -425,6 +425,8 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								}
 							}
 						}
+						vec [ size - 1 ][j] = ' ' ;
+						vec [ size - 1 ][ j + 1 ] = OS ;
 						E_S es = EnemySpaceship ( size ) ;
 						es_t = es.type ;
 									
@@ -481,6 +483,8 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								}
 							}
 						}
+						vec [size - 1][j] = ' ' ;
+						vec [size - 1][j + 1] = OS ;
 						E_S es = EnemySpaceship ( size ) ;
 						es_t = es.type ;
 									
@@ -738,6 +742,8 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								}
 							}
 						}
+						vec [ size - 1 ][j] = ' ' ;
+						vec [ size - 1 ][ j - 1 ] = OS ;
 						E_S es = EnemySpaceship ( size ) ;
 						es_t = es.type ;
 									
@@ -794,6 +800,8 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								}
 							}
 						}
+						vec [ size - 1 ][j] = ' ' ;
+						vec [ size - 1 ][ j - 1 ] = OS ;
 						E_S es = EnemySpaceship ( size ) ;
 						es_t = es.type ;
 									
