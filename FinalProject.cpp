@@ -2,6 +2,7 @@
 #include <windows.h> //for color and system clear
 #include <ctime>
 #include <vector>
+#include <conio.h>
 
 using namespace std ;
 
@@ -65,7 +66,8 @@ F_P FirstPage (){
 		while ( true ){ //our spaceship
 			SetConsoleTextAttribute ( color , 3 ) ;
 			cout << "select your spaceship ( # or * ) : " ;
-			cin >> f.OS ;
+			f.OS = getche () ;
+			cout << endl ;
 			
 			if ( f.OS != '#' && f.OS != '*' ){
 				SetConsoleTextAttribute ( color , 4 ) ;
@@ -78,7 +80,8 @@ F_P FirstPage (){
 		while ( true ){ //enemy spaceship
 			SetConsoleTextAttribute ( color , 3 ) ;
 			cout << "select enemy spaceship ( # or * ) : " ;
-			cin >> f.ES ;
+			f.ES = getche () ;
+			cout << endl ;
 			
 			if ( f.ES != '#' && f.ES != '*' ){
 				SetConsoleTextAttribute ( color , 4 ) ;
@@ -136,7 +139,7 @@ char menu (){
 		SetConsoleTextAttribute ( color , 12 ) ;
 		cout << "exit (e)" << endl ;
 
-		cin >> input ;
+		input = getche () ;
 		
 		if ( input != 'n' && input != 'c' && input != 'e' ){
 			SetConsoleTextAttribute ( color , 4 ) ;
@@ -308,7 +311,8 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 		
 			SetConsoleTextAttribute ( color , 5 ) ;
 			cout << "right (r) or left (l) or in its place (i) or menu (m) : " ;
-			cin >> input ;
+			input = getche () ;
+			cout << endl ;
 			
 			if ( input != 'r' && input != 'l' && input != 'i' && input != 'm' ){
 				SetConsoleTextAttribute ( color , 4 ) ;
