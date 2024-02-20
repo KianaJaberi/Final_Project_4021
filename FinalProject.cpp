@@ -43,9 +43,6 @@ int main (){
 	if ( me == 'c' ){
 	}
 	
-	if ( me == 's' ){
-	}
-	
 	if ( me == 'e' ){
 		exit (0) ;
 	}
@@ -137,14 +134,11 @@ char menu (){
 		cout << "continue game (c)" << endl ;
 		
 		SetConsoleTextAttribute ( color , 12 ) ;
-		cout << "enemies status (s)" << endl ;
-		
-		SetConsoleTextAttribute ( color , 15 ) ;
 		cout << "exit (e)" << endl ;
 
 		cin >> input ;
 		
-		if ( input != 'n' && input != 'c' && input != 's' && input != 'e' ){
+		if ( input != 'n' && input != 'c' && input != 'e' ){
 			SetConsoleTextAttribute ( color , 4 ) ;
 			cout << "wrong choice !" << endl << endl ;
 			continue ;
@@ -365,6 +359,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 									}
 									E_S es = EnemySpaceship ( size ) ;
 									es_t = es.type ;
+									
 									int row = 0 ;
 									int col = es.loc ;
 									
@@ -477,13 +472,71 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							es_h = 6 ;
 						}
 					}
-					if ( ( j + 1 ) == size ){
-						vec [ size - 2 ][j] = '^' ;
+					if ( vec [size - 2][j + 1] == ES ){
+						heal -- ;
+						for ( int i = 0 ; i < size ; i ++ ){
+							for ( int j = 0 ; j < size ; j ++ ){
+								if ( vec [i][j] == ES ){
+									vec [i][j] = ' ' ;
+								}
+							}
+						}
+						E_S es = EnemySpaceship ( size ) ;
+						es_t = es.type ;
+									
+						int row = 0 ;
+						int col = es.loc ;
+									
+						if ( es_t == 'd' ){
+							vec [row][col] = ES ;
+							es_h = 1 ;
+						}
+									
+						if ( es_t == 's' ){
+							for ( int i = 0 ; i < 2 ; i ++ ){
+								for ( int j = 0 ; j < 2 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 2 ;
+							}
+							es_h = 2 ;
+						}
+									
+						if ( es_t == 'w' ){
+							for ( int i = 0 ; i < 3 ; i ++ ){
+								for ( int j = 0 ; j < 3 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 3 ;
+							}
+							es_h = 4 ;
+						}
+									
+						if ( es_t == 'b' ){
+							for ( int i = 0 ; i < 4 ; i ++ ){
+								for ( int j = 0 ; j < 4 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 4 ;
+							}
+							es_h = 6 ;
+						}
 					}
 					else {
-						vec [ size - 1 ][j] = ' ' ;
-						vec [ size - 1 ][j + 1] = OS ;
-						vec [ size - 2 ][j + 1] = '^' ;
+						if ( ( j + 1 ) == size ){
+							vec [ size - 2 ][j] = '^' ;
+						}
+						else {
+							vec [ size - 1 ][j] = ' ' ;
+							vec [ size - 1 ][j + 1] = OS ;
+							vec [ size - 2 ][j + 1] = '^' ;
+						}
 					}
 				}
 			}
@@ -732,13 +785,71 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							es_h = 6 ;
 						}
 					}
-					if ( ( j - 1 ) == -1 ){
-						vec [ size - 2 ][j] = '^' ;
+					if ( vec [size - 2][j - 1] == ES ){
+						heal -- ;
+						for ( int i = 0 ; i < size ; i ++ ){
+							for ( int j = 0 ; j < size ; j ++ ){
+								if ( vec [i][j] == ES ){
+									vec [i][j] = ' ' ;
+								}
+							}
+						}
+						E_S es = EnemySpaceship ( size ) ;
+						es_t = es.type ;
+									
+						int row = 0 ;
+						int col = es.loc ;
+									
+						if ( es_t == 'd' ){
+							vec [row][col] = ES ;
+							es_h = 1 ;
+						}
+									
+						if ( es_t == 's' ){
+							for ( int i = 0 ; i < 2 ; i ++ ){
+								for ( int j = 0 ; j < 2 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 2 ;
+							}
+							es_h = 2 ;
+						}
+									
+						if ( es_t == 'w' ){
+							for ( int i = 0 ; i < 3 ; i ++ ){
+								for ( int j = 0 ; j < 3 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 3 ;
+							}
+							es_h = 4 ;
+						}
+									
+						if ( es_t == 'b' ){
+							for ( int i = 0 ; i < 4 ; i ++ ){
+								for ( int j = 0 ; j < 4 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 4 ;
+							}
+							es_h = 6 ;
+						}
 					}
 					else {
-						vec [ size - 1 ][j] = ' ' ;
-						vec [ size - 1 ][j - 1] = OS ;
-						vec [ size - 2 ][j - 1] = '^' ;
+						if ( ( j - 1 ) == -1 ){
+							vec [ size - 2 ][j] = '^' ;
+						}
+						else {
+							vec [ size - 1 ][j] = ' ' ;
+							vec [ size - 1 ][j - 1] = OS ;
+							vec [ size - 2 ][j - 1] = '^' ;
+						}
 					}
 				}
 			}
@@ -931,7 +1042,65 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 			
 			for ( int j = 0 ; j < size ; j ++ ){ //for our spaceship
 				if ( vec [ size - 1 ][j] == OS ){
-					vec [ size - 2 ][j] = '^' ;
+					if ( vec [size - 2][j] == ES ){
+						heal -- ;
+						for ( int i = 0 ; i < size ; i ++ ){
+							for ( int j = 0 ; j < size ; j ++ ){
+								if ( vec [i][j] == ES ){
+									vec [i][j] = ' ' ;
+								}
+							}
+						}
+						E_S es = EnemySpaceship ( size ) ;
+						es_t = es.type ;
+									
+						int row = 0 ;
+						int col = es.loc ;
+									
+						if ( es_t == 'd' ){
+							vec [row][col] = ES ;
+							es_h = 1 ;
+						}
+									
+						if ( es_t == 's' ){
+							for ( int i = 0 ; i < 2 ; i ++ ){
+								for ( int j = 0 ; j < 2 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 2 ;
+							}
+							es_h = 2 ;
+						}
+									
+						if ( es_t == 'w' ){
+							for ( int i = 0 ; i < 3 ; i ++ ){
+								for ( int j = 0 ; j < 3 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 3 ;
+							}
+							es_h = 4 ;
+						}
+									
+						if ( es_t == 'b' ){
+							for ( int i = 0 ; i < 4 ; i ++ ){
+								for ( int j = 0 ; j < 4 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 4 ;
+							}
+							es_h = 6 ;
+						}
+					}
+					else {
+						vec [ size - 2 ][j] = '^' ;
+					}
 				}
 			}
 			
@@ -1087,9 +1256,6 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 			}
 			
 			if ( input == 'c' ){
-			}
-			
-			if ( input == 's' ){
 			}
 			
 			if ( input == 'e' ){
