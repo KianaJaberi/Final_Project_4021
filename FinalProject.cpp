@@ -265,6 +265,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 	int level = s.level ;
 	char input ;
 	bool flag ;
+	bool flag2 = true ;
 	
 	HANDLE color ;
 	color = GetStdHandle ( STD_OUTPUT_HANDLE ) ;
@@ -315,8 +316,11 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 			cout << "right (r) or left (l) or in its place (i) or menu (m) : " ;
 			cin >> input ;
 			
-			if ( input != 'r' && input != 'l' && input != 'i' && input != 'm' )
+			if ( input != 'r' && input != 'l' && input != 'i' && input != 'm' ){
+				SetConsoleTextAttribute ( color , 4 ) ;
+				cout << "error !" << endl ;
 				continue ;
+			}
 				
 			break ;
 		}
@@ -417,6 +421,61 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 			
 			for ( int j = ( size - 1 ) ; j >= 0 ; j -- ){ //for our spaceship
 				if ( vec [ size - 1 ][j] == OS ){
+					if ( vec [ size - 1 ][ j + 1 ] == ES ){
+						heal -- ;
+						for ( int i = 0 ; i < size ; i ++ ){
+							for ( int j = 0 ; j < size ; j ++ ){
+								if ( vec [i][j] == ES ){
+									vec [i][j] = ' ' ;
+								}
+							}
+						}
+						E_S es = EnemySpaceship ( size ) ;
+									
+						int row = 0 ;
+						int col = es.loc ;
+									
+						if ( es.type == 'd' ){
+							vec [row][col] = ES ;
+							es_h = 1 ;
+						}
+									
+						if ( es.type == 's' ){
+							for ( int i = 0 ; i < 2 ; i ++ ){
+								for ( int j = 0 ; j < 2 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 2 ;
+							}
+							es_h = 2 ;
+						}
+									
+						if ( es.type == 'w' ){
+							for ( int i = 0 ; i < 3 ; i ++ ){
+								for ( int j = 0 ; j < 3 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 3 ;
+							}
+							es_h = 4 ;
+						}
+									
+						if ( es.type == 'b' ){
+							for ( int i = 0 ; i < 4 ; i ++ ){
+								for ( int j = 0 ; j < 4 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 4 ;
+							}
+							es_h = 6 ;
+						}
+					}
 					if ( ( j + 1 ) == size ){
 						vec [ size - 2 ][j] = '^' ;
 					}
@@ -430,7 +489,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 			
 			for ( int i = ( size - 1 ) ; i >= 0 ; i -- ){ // for enemy spaceship
 				for ( int j = ( size - 1 ) ; j >= 0 ; j -- ){
-					if ( vec [i][j] == ES ){
+					if ( vec [i][j] == ES ){	
 						if ( ( i + 1 ) == size ){
 							vec [i][j] = ' ' ;
 						}
@@ -614,6 +673,61 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 			
 			for ( int j = 0 ; j < size ; j ++ ){ //for our spaceship
 				if ( vec [ size - 1 ][j] == OS ){
+					if ( vec [ size - 1 ][ j - 1 ] == ES ){
+						heal -- ;
+						for ( int i = 0 ; i < size ; i ++ ){
+							for ( int j = 0 ; j < size ; j ++ ){
+								if ( vec [i][j] == ES ){
+									vec [i][j] = ' ' ;
+								}
+							}
+						}
+						E_S es = EnemySpaceship ( size ) ;
+									
+						int row = 0 ;
+						int col = es.loc ;
+									
+						if ( es.type == 'd' ){
+							vec [row][col] = ES ;
+							es_h = 1 ;
+						}
+									
+						if ( es.type == 's' ){
+							for ( int i = 0 ; i < 2 ; i ++ ){
+								for ( int j = 0 ; j < 2 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 2 ;
+							}
+							es_h = 2 ;
+						}
+									
+						if ( es.type == 'w' ){
+							for ( int i = 0 ; i < 3 ; i ++ ){
+								for ( int j = 0 ; j < 3 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 3 ;
+							}
+							es_h = 4 ;
+						}
+									
+						if ( es.type == 'b' ){
+							for ( int i = 0 ; i < 4 ; i ++ ){
+								for ( int j = 0 ; j < 4 ; j ++ ){
+									vec [row][col] = ES ;
+									col ++ ;
+								}
+								row ++ ;
+								col -= 4 ;
+							}
+							es_h = 6 ;
+						}
+					}
 					if ( ( j - 1 ) == -1 ){
 						vec [ size - 2 ][j] = '^' ;
 					}
@@ -817,7 +931,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 			
 			for ( int i = ( size - 1 ) ; i >= 0 ; i -- ){ // for enemy spaceship
 				for ( int j = ( size - 1 ) ; j >= 0 ; j -- ){
-					if ( vec [i][j] == ES ){
+					if ( vec [i][j] == ES ){						
 						if ( ( i + 1 ) == size ){
 							vec [i][j] = ' ' ;
 						}
