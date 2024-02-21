@@ -1,8 +1,9 @@
-#include <iostream>
+#include <iostream>                                  //766
 #include <windows.h> //for color and system clear
 #include <ctime>
 #include <vector>
 #include <conio.h>
+#include <fstream>
 
 using namespace std ;
 
@@ -26,6 +27,7 @@ F_P FirstPage () ; //first page
 char menu () ; //menu
 E_S EnemySpaceship ( int ) ;
 void NewGame ( int , char , char ) ;
+void ContinueGame ( int , char , char ) ;
 void game ( int , vector < vector < char > > , char , char , int , char , status ) ;
 bool finding ( vector < vector < char > > , int , char ) ;
 
@@ -36,12 +38,13 @@ int main (){
 	
 	char me = menu () ; //menu entry
 	system ("cls") ; //for clear menu
-			
+	
 	if ( me == 'n' ){
 		NewGame ( fp.size , fp.OS , fp.ES ) ;
 	}
 	
 	if ( me == 'c' ){
+		ContinueGame ( fp.size , fp.OS , fp.ES ) ;
 	}
 	
 	if ( me == 'e' ){
@@ -255,6 +258,70 @@ void NewGame ( int size , char OS , char ES ){
 	game ( size , vec , OS , ES , es.heal , es.type , s ) ;
 }
 
+void ContinueGame ( int size , char OS , char ES ){
+	
+	ifstream file ;
+	file.open( "file.txt" ) ;
+	
+	int heal , os_l , point , level , es_h , es_r , es_c ;
+	char es_t ;
+	
+	file >> heal >> os_l >> point >> level >> es_t >> es_h >> es_r >> es_c ;
+	
+		
+	vector < vector < char > > vec ( size , vector < char > ( size ) ) ;
+	
+	for ( int i = 0 ; i < size ; i ++ )
+		for ( int j = 0 ; j < size ; j ++ )
+			vec [i][j] = ' ' ;
+			
+	vec [size - 1][os_l] = OS ;
+	
+	if ( es_t == 'd' ){
+		vec [es_r][es_c] = ES ;
+	}
+	
+	if ( es_t == 's' ){
+		for ( int i = 0 ; i < 2 ; i ++ ){
+			for ( int j = 0 ; j < 2 ; j ++ ){
+				vec [es_r][es_c] = ES ;
+				es_c ++ ;
+			}
+			es_r ++ ;
+			es_c -= 2 ;
+		}
+	}
+	
+	if ( es_t == 'w' ){
+		for ( int i = 0 ; i < 3 ; i ++ ){
+			for ( int j = 0 ; j < 3 ; j ++ ){
+				vec [es_r][es_c] = ES ;
+				es_c ++ ;
+			}
+			es_r ++ ;
+			es_c -= 3 ;
+		}
+	}
+	
+	if ( es_t == 'b' ){
+		for ( int i = 0 ; i < 4 ; i ++ ){
+			for ( int j = 0 ; j < 4 ; j ++ ){
+				vec [es_r][es_c] = ES ;
+				es_c ++ ;
+			}
+			es_r ++ ;
+			es_c -= 4 ;
+		}
+	}
+			
+	status s ;
+	s.heal = heal ;
+	s.point = point ;
+	s.level = level ;
+	
+	game ( size , vec , OS , ES , es_h , es_t , s ) ;
+}
+
 void game ( int size , vector < vector < char > > vec , char OS , char ES , int es_h , char es_t , status s ){
 	
 	int heal = s.heal ;
@@ -262,12 +329,16 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 	int level = s.level ;
 	char input ;
 	bool flag ;
-	bool flag2 = true ;
+	fstream file ;
+	int f_heal , f_os_l , f_point , f_level , f_es_h , f_es_r , f_es_c ;
+	char f_es_t ;
 	
 	HANDLE color ;
 	color = GetStdHandle ( STD_OUTPUT_HANDLE ) ;
 	
 	while ( heal > 0 ){
+		
+		file.open("file.txt") ;
 		
 		SetConsoleTextAttribute ( color , 10 ) ;
 		cout << "our heal : " << heal << endl ;
@@ -337,6 +408,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							if ( vec [i - 1][j] == ES ){
 								vec [i][j] = ' ' ;
 								es_h -- ;
+								f_es_h = es_h ;
 								if ( es_h == 0 ){
 									
 									switch ( es_t ){
@@ -354,6 +426,10 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										level ++ ;
 										point -= 200 ;
 									}
+									
+									f_point = point ;
+									f_level = level ;
+									
 									for ( int i = 0 ; i < size ; i ++ ){
 										for ( int j = 0 ; j < size ; j ++ ){
 											if ( vec [i][j] == ES ){
@@ -363,13 +439,18 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 									}
 									E_S es = EnemySpaceship ( size ) ;
 									es_t = es.type ;
+									f_es_t = es_t ;
 									
 									int row = 0 ;
 									int col = es.loc ;
 									
+									f_es_r = row ;
+									f_es_c = col ;
+									
 									if ( es_t == 'd' ){
 										vec [row][col] = ES ;
 										es_h = 1 ;
+										f_es_h = es_h ;
 									}
 									
 									if ( es_t == 's' ){
@@ -382,6 +463,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											col -= 2 ;
 										}
 										es_h = 2 ;
+										f_es_h = es_h ;
 									}
 									
 									if ( es_t == 'w' ){
@@ -394,6 +476,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											col -= 3 ;
 										}
 										es_h = 4 ;
+										f_es_h = es_h ;
 									}
 									
 									if ( es_t == 'b' ){
@@ -406,6 +489,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											col -= 4 ;
 										}
 										es_h = 6 ;
+										f_es_h = es_h ;
 									}
 								}
 							}
@@ -422,6 +506,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 				if ( vec [ size - 1 ][j] == OS ){
 					if ( vec [ size - 1 ][ j + 1 ] == ES ){
 						heal -- ;
+						f_heal = heal ;
 						for ( int i = 0 ; i < size ; i ++ ){
 							for ( int j = 0 ; j < size ; j ++ ){
 								if ( vec [i][j] == ES ){
@@ -431,15 +516,21 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 						}
 						vec [ size - 1 ][j] = ' ' ;
 						vec [ size - 1 ][ j + 1 ] = OS ;
+						f_os_l = ( j + 1 ) ;
 						E_S es = EnemySpaceship ( size ) ;
 						es_t = es.type ;
+						f_es_t = es_t ;
 									
 						int row = 0 ;
 						int col = es.loc ;
+						
+						f_es_r = row ;
+						f_es_c = col ;
 									
 						if ( es_t == 'd' ){
 							vec [row][col] = ES ;
 							es_h = 1 ;
+							f_es_h = es_h ;
 						}
 									
 						if ( es_t == 's' ){
@@ -452,6 +543,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								col -= 2 ;
 							}
 							es_h = 2 ;
+							f_es_h = es_h ;
 						}
 									
 						if ( es_t == 'w' ){
@@ -464,6 +556,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								col -= 3 ;
 							}
 							es_h = 4 ;
+							f_es_h = es_h ;
 						}
 									
 						if ( es_t == 'b' ){
@@ -476,10 +569,12 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								col -= 4 ;
 							}
 							es_h = 6 ;
+							f_es_h = es_h ;
 						}
 					}
 					if ( vec [size - 2][j + 1] == ES ){
 						heal -- ;
+						f_heal = heal ;
 						for ( int i = 0 ; i < size ; i ++ ){
 							for ( int j = 0 ; j < size ; j ++ ){
 								if ( vec [i][j] == ES ){
@@ -489,15 +584,21 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 						}
 						vec [size - 1][j] = ' ' ;
 						vec [size - 1][j + 1] = OS ;
+						f_os_l = ( j + 1 ) ;
 						E_S es = EnemySpaceship ( size ) ;
 						es_t = es.type ;
+						f_es_t = es_t ;
 									
 						int row = 0 ;
 						int col = es.loc ;
+						
+						f_es_r = row ;
+						f_es_c = col ;
 									
 						if ( es_t == 'd' ){
 							vec [row][col] = ES ;
 							es_h = 1 ;
+							f_es_h = es_h ;
 						}
 									
 						if ( es_t == 's' ){
@@ -510,6 +611,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								col -= 2 ;
 							}
 							es_h = 2 ;
+							f_es_h = es_h ;
 						}
 									
 						if ( es_t == 'w' ){
@@ -522,6 +624,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								col -= 3 ;
 							}
 							es_h = 4 ;
+							f_es_h = es_h ;
 						}
 									
 						if ( es_t == 'b' ){
@@ -534,6 +637,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 								col -= 4 ;
 							}
 							es_h = 6 ;
+							f_es_h = es_h ;
 						}
 					}
 					else {
@@ -543,6 +647,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 						else {
 							vec [ size - 1 ][j] = ' ' ;
 							vec [ size - 1 ][j + 1] = OS ;
+							f_os_l = ( j + 1 ) ;
 							vec [ size - 2 ][j + 1] = '^' ;
 						}
 					}
@@ -559,7 +664,10 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 							if ( vec [i + 1][j] == '^' ){
 								vec [i][j] = ' ' ;
 								vec [i + 1][j] = ES ;
+								f_es_r = ( i + 1 ) ;
+								f_es_c = j ;
 								es_h -- ;
+								f_es_h = es_h ;
 								if ( es_h == 0 ){
 									
 									switch ( es_t ){
@@ -577,6 +685,10 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 										level ++ ;
 										point -= 200 ;
 									}
+									
+									f_point = point ;
+									f_level = level ;
+									
 									for ( int i = 0 ; i < size ; i ++ ){
 										for ( int j = 0 ; j < size ; j ++ ){
 											if ( vec [i][j] == ES ){
@@ -586,13 +698,18 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 									}
 									E_S es = EnemySpaceship ( size ) ;
 									es_t = es.type ;
+									f_es_t = es_t ;
 									
 									int row = 0 ;
 									int col = es.loc ;
 									
+									f_es_r = row ;
+									f_es_c = col ;
+									
 									if ( es_t == 'd' ){
 										vec [row][col] = ES ;
 										es_h = 1 ;
+										f_es_h = es_h ;
 									}
 									
 									if ( es_t == 's' ){
@@ -605,6 +722,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											col -= 2 ;
 										}
 										es_h = 2 ;
+										f_es_h = es_h ;
 									}
 									
 									if ( es_t == 'w' ){
@@ -617,6 +735,7 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											col -= 3 ;
 										}
 										es_h = 4 ;
+										f_es_h = es_h ;
 									}
 									
 									if ( es_t == 'b' ){
@@ -629,12 +748,15 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 											col -= 4 ;
 										}
 										es_h = 6 ;
+										f_es_h = es_h ;
 									}
 								}
 							}
 							else {
 								vec [i][j] = ' ' ;
 								vec [i + 1][j] = ES ;
+								f_es_r = ( i + 1 ) ;
+								f_es_c = j ;
 							}
 						}
 					}
@@ -1274,8 +1396,10 @@ void game ( int size , vector < vector < char > > vec , char OS , char ES , int 
 				exit (0) ;
 			}
 		}
+		file.close() ;
 	}
-	
+	SetConsoleTextAttribute ( color , 4 ) ;
+	cout << "game over !" << endl ;
 }
 
 bool finding ( vector < vector < char > > vec , int size , char ES ){
