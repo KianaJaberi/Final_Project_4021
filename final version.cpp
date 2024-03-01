@@ -29,6 +29,7 @@ int main (){
 	input = menu () ;
 	
 	if ( input == 'n' ){
+		
 		NewGame () ;
 	}
 	
@@ -85,6 +86,8 @@ char menu (){
 		}
 	}
 	
+	system ( " cls " ) ;
+	
 	return input ;
 }
 
@@ -93,18 +96,19 @@ void NewGame (){
 	conditions input ;
 	status New ;
 	
+	HANDLE color ;
+	color = GetStdHandle ( STD_OUTPUT_HANDLE ) ;
+	
 	New.heal = 3 ;
 	New.point = 0 ;
 	New.level = 0 ;
-	
-	HANDLE color ;
-	color = GetStdHandle ( STD_OUTPUT_HANDLE ) ;
 	
 	while ( true ){ //our spaceship
 		
 		SetConsoleTextAttribute ( color , 13 ) ; //light purple
 		cout << "your spaceship ( # or * ) : " ;
 		
+		SetConsoleTextAttribute ( color , 15 ) ; //white
 		input.OS = getche () ;
 		cout << endl ;
 		
@@ -154,6 +158,8 @@ void NewGame (){
 		}
 	}
 	
+	system ( " cls " ) ;
+	
 	vector < vector < char > > vec ( input.size , vector < char > ( input.size ) ) ;
 	
 	for ( int i = 0 ; i < input.size ; i ++ ){
@@ -169,67 +175,114 @@ void NewGame (){
 
 void game ( conditions input , status s , vector < vector < char > > vec ){
 	
+	char OS = input.OS ;
+	char ES = input.ES ;
+	int size = input.size ;
+	
+	int heal = s.heal ;
+	int point = s.point ;
+	int level = s.level ;
+	
+	int es_h ;
+	char move ;
+	
 	HANDLE color ;
 	color = GetStdHandle ( STD_OUTPUT_HANDLE ) ;
 	
-	while ( s.heal > 0 ){
-		
-		finding ;////////////////
+	while ( heal > 0 ){
 		
 		SetConsoleTextAttribute ( color , 13 ) ; //light purple
-		cout << "heal : " << s.heal << " | " ;
+		cout << "heal : " << heal << " | " ;
+		
+		SetConsoleTextAttribute ( color , 14 ) ; //light yellow
+		cout << "enemy spaceship heal : " << es_h << endl ;
 		
 		SetConsoleTextAttribute ( color , 11 ) ; //light blue
-		cout << "enemy spaceship heal : " <<  << endl ;
+		cout << "point : " << point << " | " ;
 		
-		SetConsoleTextAttribute ( color , 14 ) ;
-		cout << "point : " << point << endl ;
-		
-		SetConsoleTextAttribute ( color , 13 ) ;
+		SetConsoleTextAttribute ( color , 10 ) ; //light green
 		cout << "level : " << level << endl << endl ;
 		
-		SetConsoleTextAttribute ( color , 15 ) ;
+		SetConsoleTextAttribute ( color , 15 ) ; //white
 		for ( int i = 0 ; i < size ; i ++ ){
 			
-			for ( int j = 0 ; j < size ; j ++ )
+			for ( int j = 0 ; j < size ; j ++ ){
+				
 				cout << " ---" ;
+			}
 			
 			cout << endl ;
 			
 			for ( int j = 0 ; j < size ; j ++ ){
+				
 				cout << "| " ;
 				
-				if ( vec [i][j] == OS )
+				if ( vec [i][j] == OS ){
+					
 					cout << OS << " " ;
-				if ( vec [i][j] == ES )
+				}
+				
+				if ( vec [i][j] == ES ){
+					
 					cout << ES << " " ;
-				if ( vec [i][j] == '^' )
+				}
+				
+				if ( vec [i][j] == '^' ){
+					
 					cout << "^ " ;
-				if ( vec [i][j] == ' ' )
+				}
+				
+				if ( vec [i][j] == ' ' ){
+					
 					cout << "  " ;
+				}
 			}
+			
 			cout << "|" << endl ;
 		}
-		for ( int i = 0 ; i < size ; i ++ )
+		
+		for ( int i = 0 ; i < size ; i ++ ){
+			
 			cout << " ---" ;
-		cout << endl ;
+		}
+		
+		cout << endl << endl ;
 		
 		while ( true ){
 			
-			SetConsoleTextAttribute ( color , 5 ) ;
-			cout << "right (r) or left (l) or in its place (i) or menu (m) : " ;
-			input = getche () ;
+			SetConsoleTextAttribute ( color , 5 ) ; //dark purple
+			cout << "left (a) or here (s) or right (d) or menu (w) : " ;
+			
+			SetConsoleTextAttribute ( color , 15 ) ; //white
+			move = getche () ;
 			cout << endl ;
 			
-			if ( input != 'r' && input != 'l' && input != 'i' && input != 'm' ){
-				SetConsoleTextAttribute ( color , 4 ) ;
+			if ( move != 'a' && move != 's' && move != 'd' && move != 'w' ){
+				
+				SetConsoleTextAttribute ( color , 4 ) ; //red
 				cout << "error !" << endl ;
+				
 				continue ;
 			}
 			
-			break ;
+			else {
+				
+				break ;
+			}
 		}
 		
-		system ("cls") ;
+		system ( " cls " ) ;
+		
+		if ( move == 'a' ){
+		}
+		
+		if ( move == 's' ){
+		}
+		
+		if ( move == 'd' ){
+		}
+		
+		if ( move == 'w' ){
+		}
 	}
 }
