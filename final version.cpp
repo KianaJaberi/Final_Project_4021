@@ -285,7 +285,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 			int row = 0 ;
 			int col = es.loc ;
 			
-			if ( es_t == 'd' ){
+			if ( es_t == 'd' ){ //dart
 				
 				vec [row][col] = ES ;
 				
@@ -293,7 +293,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 				f_es_h = es_h ;
 			}
 			
-			if ( es_t == 's' ){
+			if ( es_t == 's' ){ //striker
 				
 				for ( int i = 0 ; i < 2 ; i ++ ){
 					
@@ -312,7 +312,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 				f_es_h = es_h ;
 			}
 			
-			if ( es_t == 'w' ){
+			if ( es_t == 'w' ){ //wraith
 				
 				for ( int i = 0 ; i < 3 ; i ++ ){
 					
@@ -331,7 +331,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 				f_es_h = es_h ;
 			}
 			
-			if ( es_t == 'b' ){
+			if ( es_t == 'b' ){ //banshee
 				
 				for ( int i = 0 ; i < 4 ; i ++ ){
 					
@@ -442,7 +442,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 					
 					if ( vec [i][j] == '^' ){
 						
-						if ( i == 0 ){
+						if ( i == 0 ){ //end of table
 							
 							vec [i][j] = ' ' ;
 						}
@@ -507,7 +507,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 				
 				if ( vec [size - 1][i] == OS ){
 					
-					if ( ( i - 1 ) == -1 ){
+					if ( ( i - 1 ) == -1 ){ //end of table
 						
 						if ( vec [size - 2][i] == ES ){
 							
@@ -589,7 +589,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 					
 					if ( vec [i][j] == ES ){
 						
-						if ( i == ( size - 1 ) ){
+						if ( i == ( size - 1 ) ){ //end of table
 							
 							if ( vec [i - 1][j] != ES ){
 								
@@ -685,7 +685,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 					
 					if ( vec [i][j] == '^' ){
 						
-						if ( i == 0 ){
+						if ( i == 0 ){ //end of table
 							
 							vec [i][j] = ' ' ;
 						}
@@ -781,7 +781,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 					
 					if ( vec [i][j] == ES ){
 						
-						if ( i == ( size - 1 ) ){
+						if ( i == ( size - 1 ) ){ //end of table
 							
 							if ( vec [i - 1][j] != ES ){
 								
@@ -877,7 +877,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 					
 					if ( vec [i][j] == '^' ){
 						
-						if ( i == 0 ){
+						if ( i == 0 ){ //end of table
 							
 							vec [i][j] = ' ' ;
 						}
@@ -942,7 +942,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 				
 				if ( vec [size - 1][i] == OS ){
 					
-					if ( ( i + 1 ) == size ){
+					if ( ( i + 1 ) == size ){ //end of table
 						
 						if ( vec [size - 2][i] == ES ){
 							
@@ -1024,7 +1024,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 					
 					if ( vec [i][j] == ES ){
 						
-						if ( i == ( size - 1 ) ){
+						if ( i == ( size - 1 ) ){ //end of table
 							
 							if ( vec [i - 1][j] != ES ){
 								
@@ -1140,7 +1140,7 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 					file << "^" << endl ;
 				}
 				
-				else if ( vec [i][j] == ' ' ){
+				else if ( vec [i][j] == ' ' ){ //null
 					
 					file << "n" << endl ;
 				}
@@ -1161,6 +1161,8 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 			}
 			
 			if ( input == 'c' ){
+				
+				ContinueGame () ;
 			}
 			
 			if ( input == 'e' ){
@@ -1176,6 +1178,8 @@ void game ( conditions input , status s , cont c , vector < vector < char > > ve
 		cout << "game over ! " << endl ;
 		
 		remove ( "game.txt" ) ;
+		
+		SetConsoleTextAttribute ( color , 15 ) ; //white
 	}
 }
 
