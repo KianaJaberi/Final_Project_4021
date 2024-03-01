@@ -21,7 +21,7 @@ struct EnemySpaceship{
 	char type ; //enemy spaceship type
 	int loc ;   //enemy spaceship location
 };
-struct cont {
+struct cont { //for continue game
 	int heal ;
 	char type ;
 };
@@ -193,8 +193,8 @@ void NewGame (){
 	vec [ input.size - 1 ][ input.size / 2 ] = input.OS ;
 	
 	cont c ;
-	c.heal = 0 ;
-	c.type = 'a' ;
+	c.heal = 0 ;   //null
+	c.type = 'a' ; //null
 	
 	game ( input , New , c , vec ) ;
 }
@@ -228,7 +228,7 @@ void ContinueGame (){
 			
 			file >> vec [i][j] ;
 			
-			if ( vec [i][j] == 'n' ){
+			if ( vec [i][j] == 'n' ){ //n = null
 				
 				vec [i][j] = ' ' ;
 			}
